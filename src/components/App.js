@@ -7,12 +7,44 @@ import AuthButtons from './AuthButtons';
 
 class App extends Component {
   state = {
-    newUser: false
+    newUser: false,
+    username: '',
+    displayName: '',
+    pasword: ''
   }
 
   handleRegister = (e) => {
     this.setState({newUser: true})
-    console.log(this.state.newUser);
+  }
+
+  handleCancel = (e) => {
+    this.setState({newUser: false})
+  }
+
+  componentDidMount() {
+    const {username} = this.state;
+    const {displayName} = this.state;
+    const {password} = this.state;
+    // registration api
+    fetch("https://obscure-api.herokuapp.com/auth/register", {
+    method: "POST",
+    body: JSON.stringify({
+      // you'll need to define these variables ahead of time, or set them inline using key:value syntax
+      username,
+      displayName,
+      password
+    })
+  })
+    .then(response => response.json())
+    .then(result => {
+      console.log(result);
+      this.setState({
+        // the state value you want to change should go here
+        username: username,
+        displayName: displayName,
+        password: password
+      });
+    });
   }
 
   render() {
@@ -24,8 +56,8 @@ class App extends Component {
         </div>
         <main>
           <Header newUser={this.state.newUser} />
-          <AuthForm />
-          <AuthButtons handleRegister={this.handleRegister} />
+          <AuthForm newUser={this.state.newUser} />
+          <AuthButtons handleCancel={this.handleCancel} handleRegister={this.handleRegister} newUser={this.state.newUser} />
         </main>
       </div>
     );

@@ -4,6 +4,10 @@ main {
   padding: 20px;
 }
 
+.buttons {
+  margin: 10px;
+}
+
 .App {
   text-align: center;
 }
