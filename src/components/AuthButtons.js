@@ -8,7 +8,7 @@ export default class AuthButtons extends React.Component {
     return (
       <div className="buttons">
         {this.props.newUser ? registerButton : loginButton}
-        <Button color="btn" onClick={this.props.handleRegister}>Register</Button>
+        <Button color="btn btn-danger" onClick={this.props.handleRegister}>Register</Button>
       </div>
     )
   }
